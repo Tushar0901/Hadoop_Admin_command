@@ -1,0 +1,36 @@
+Lesson 2: Word count by Hadoop – step by step guide
+With Hadoop 2.x, instead of Hadoop command you can use hdfs command 
+
+1.	Prepare source data for wordcount program
+$  wget http://www.gutenberg.org/files/4300/4300.zip      
+
+$  unzip 4300.zip; 
+-	Unzip to the downloaded only zip file
+$ rm 4300.zip
+-	Remove the zip file
+$ head -50 4300.txt   
+-	  Head is count the first 50 lines  . and tail is count the last 50 .
+
+2.	Copy this file to HDFS to be processed by Hadoop
+$ hadoop dfs -mkdir data15june2016; 
+-	First the make  directory. its name (data 15 june 2016)
+$ hadoop dfs -copyFromLocal 4300.txt data15june2016
+-	Then after copy the text file into the local from hadoop 
+$ hadoop dfs –ls
+    -  And we use the dfs-ls command is display the list of downloaded the file 
+$ hadoop dfs -ls data15june2016
+   -and again use the dfs-ls . show the created directoty list and data.
+$ hadoop dfs -cat data15june2016/4300.txt
+  -
+
+3.	Execute built in program for wordcount
+$ hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar  wordcount data15june2016 wc-output2
+   - then we take the .jar its use the input the displaying count, 
+  -     wc- (ouput folder  name) stored the file   
+4. check output
+$ hadoop dfs -ls wc-output2
+$ hadoop dfs -cat wc-output2/part-r-00000
+
+Variation:
+Prepare your own file and do the count check
+
